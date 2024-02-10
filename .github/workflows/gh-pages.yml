@@ -1,0 +1,58 @@
+name: Update github pages (game and updater)
+
+on: workflow_dispatch
+
+jobs:
+  update-gh-pages:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout qspider 🛎️
+        uses: actions/checkout@v4
+        with:
+          repository: 'QSPFoundation/qspider'
+          ref: 'release'
+      - name: Checkout game 🛎️
+        uses: actions/checkout@v4
+        with:
+          path: 'public/game'
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build:standalone
+      - name: Fill updater.json
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { createWriteStream }  = require("node:fs");
+            const { pipeline } = require("node:stream/promises");
+
+            const release = await github.rest.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const latestAsset = release.data.assets.find(asset => asset.name === 'latest.json');
+            const assetContent = await github.rest.repos.getReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              asset_id: latestAsset.id,
+              headers: {
+                accept: "application/octet-stream",
+              },
+              request: {
+                parseSuccessResponseBody: false, // required to access response as stream
+              },
+            });
+            const assetStream = assetContent.data;
+            const outputFile = createWriteStream("./dist/apps/player-standalone/updater.json");
+            await pipeline(assetStream, outputFile);
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/apps/player-standalone
+          clean: true 

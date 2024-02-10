@@ -1,0 +1,42 @@
+{
+  "package": {
+    "productName": "My QspiderGame",
+    "version": "1.0.0"
+  },
+  "build": {
+    "distDir": "../dist/apps/player-standalone",
+    "beforeBuildCommand": "npm run build:standalone-desktop",
+    "withGlobalTauri": false
+  },
+  "tauri": {
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "my.game.id",
+      "publisher": "qSpider games",
+      "copyright": "werewolf",
+      "category": "Game",
+      "shortDescription": "",
+      "longDescription": ""
+    },
+    "updater": {
+      "active": true,
+      "endpoints": [
+        ""
+      ],
+      "dialog": true,
+      "pubkey": ""
+    },
+    "windows": [
+      {
+        "title": "My Game",
+        "width": 1024,
+        "height": 768,
+        "center": true,
+        "resizable": true,
+        "fullscreen": false,
+        "visible": false
+      }
+    ]
+  }
+}
