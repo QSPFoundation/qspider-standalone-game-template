@@ -4,7 +4,7 @@ This repo is a template to start a repo allowing you to build standalone release
 
 # Usage
 
-Generate new repository from this template
+Generate new repository from this template. Make sure to check `Include all branches` checkbox (this will activate Github Pages)
 
 ## Adding game files
 - clone repository
@@ -12,13 +12,6 @@ Generate new repository from this template
 - fill in `game.cfg` (if you don't have one already) with game id, title and path to game starting file, use other settings when needed
 - replace `game-icon.png` with your game icon - it should be 1024x1024 pixels PNG
 - commit and push
-
-## Configure github pages
-- Go to repositor
-- Open branch dropdown, type `gh-pages` in serch input and press `Create gh-pages branch from main`
-- Go to Settings - Pages
-- In Build and deployment section check that new `gh-pages` branch is selected in Branch section (change if not)
-- after same time you should see `Your site is live at ` with some URL
 
 ## Deploying web version of game
 - Go to Actions in repository
