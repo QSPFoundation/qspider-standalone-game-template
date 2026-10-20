@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/QSPFoundation/qspider/release/tools/standalone-config/qspider.desktop.schema.json",
+  "schemaVersion": 1,
+  "productName": "My QspiderGame",
+  "version": "1.0.0",
+  "identifier": "my.game.id",
+  "publisher": "qSpider games",
+  "copyright": "werewolf",
+  "category": "Game",
+  "shortDescription": "",
+  "longDescription": "",
+  "window": {
+    "title": "My Game",
+    "width": 1024,
+    "height": 768,
+    "resizable": true,
+    "fullscreen": false,
+    "center": true
+  },
+  "updater": {
+    "enabled": false,
+    "endpoint": "",
+    "pubkey": ""
+  }
+}
